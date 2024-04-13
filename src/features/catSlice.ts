@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { ICats } from "../types/types";
 import axios from "axios";
 
-const fetchCats = createAsyncThunk("catSl/fetchCats", async () => {
+export const fetchCats = createAsyncThunk("catSl/fetchCats", async () => {
   const response = await axios.get("https://cataas.com/api/cats?tags=cute");
-  const responseData: ICats = response.data;
+  const responseData: ICats[] = response.data;
   return responseData;
 });
 
@@ -17,7 +17,7 @@ export const catSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       fetchCats.fulfilled,
-      (state, action: PayloadAction<ICats>) => {
+      (state, action: PayloadAction<ICats[]>) => {
         state.push(action.payload);
       }
     );
@@ -25,3 +25,4 @@ export const catSlice = createSlice({
 });
 
 export default catSlice.reducer;
+export const {} = catSlice.actions;
